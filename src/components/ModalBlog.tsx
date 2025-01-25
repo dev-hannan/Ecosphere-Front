@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import CreatableSelect from "react-select/creatable";
 import AlertDialogSlide from "./Modal";
 import axios from "axios";
-
+import { toast } from 'react-toastify';
 interface ModalBlogProps {
   open: boolean;
   setOpen: React.Dispatch<React.SetStateAction<boolean>>;
@@ -36,6 +36,8 @@ const ModalBlog = ({ open, setOpen, id, setBlogId }: ModalBlogProps) => {
       setTags([]);
       setValue([]);
       setBlogId && setBlogId("");
+      toast.success(id ? "Blog updated successfully" : "Blog added successfully");
+
     } catch (error) {
       console.error("Error while adding/editing the blog:", error);
     }
@@ -68,6 +70,7 @@ const ModalBlog = ({ open, setOpen, id, setBlogId }: ModalBlogProps) => {
       }));
       setValue(formattedTags);
       setTags(blog.tags);
+
     } catch (error) {
       console.error("Error while fetching the blog:", error);
     }

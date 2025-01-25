@@ -3,6 +3,7 @@ import axios from "axios";
 import { MdDelete } from "react-icons/md";
 import { MdModeEdit } from "react-icons/md";
 import ModalBlog from "./ModalBlog";
+import { toast } from "react-toastify";
 
 interface blogData {
   _id: number;
@@ -46,6 +47,7 @@ const UserTable = () => {
         Authorization: `Bearer ${sessionStorage.getItem("token")}`,
       },
     });
+    toast.success("Blog deleted successfully!");
     if (response) return getBlog();
 
   };
