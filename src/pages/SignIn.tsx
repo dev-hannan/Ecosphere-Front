@@ -3,6 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import { useEffect } from "react";
+import { toast } from "react-toastify";
 
 const SignIn = () => {
   const navigate = useNavigate();
@@ -30,11 +31,14 @@ const SignIn = () => {
         sessionStorage.setItem("token", token);
         sessionStorage.setItem("user", JSON.stringify(user));
         navigate("/", { replace: true });
+        toast.success("Sign-in successful!");
       } catch (error: any) {
         if (error.response) {
+          toast.error(error.response.data.message);
           console.error("Sign-in error:", error.response.data.message);
         } else {
           console.error("Sign-in error:", error.message);
+          toast.error(error.message)
         }
       }
     },

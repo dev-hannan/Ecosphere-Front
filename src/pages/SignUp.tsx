@@ -3,6 +3,7 @@ import { useFormik } from "formik";
 import * as Yup from "yup";
 import axios from "axios";
 import { useEffect } from "react";
+import { toast } from "react-toastify";
 
 const SignUp = () => {
   const navigate = useNavigate();
@@ -30,13 +31,15 @@ const SignUp = () => {
       const apiEndpoint = "http://localhost:3000/register";
       try {
         const response = await axios.post(apiEndpoint, values);
-        console.log("Sign-up successful:", response.data);
         navigate("/sign-in", { replace: true });
+        toast.success("Sign-up successful!");
       } catch (error: any) {
         if (error.response) {
+          toast.error(error.response.data.message);
           console.error("Sign-up error:", error.response.data);
         } else {
           console.error("Sign-up error:", error.message);
+          toast.error(error.message);
         }
       }
     },
